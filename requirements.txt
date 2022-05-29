@@ -4,3 +4,5 @@ scikit-learn==1.0.2
 tensorflow==2.6.0
 keras==2.6.0
 streamlit==1.6.0
+tensorflow-estimator==2.6.0
+tensorboard==2.6.0
