@@ -1,6 +1,9 @@
-scikit-learn==1.0.2
-tensorflow==2.6.0
-keras==2.6.0
 streamlit==1.6.0
-tensorflow-estimator==2.6.0
+keras==2.6.0
+scikit-learn==1.0.2
+matplotlib==3.5.1
+tensorflow==2.6.0
 tensorboard==2.6.0
+tensorflow-estimator==2.6.0
+click==8.0.4
+streamlit-option-menu==0.3.2
