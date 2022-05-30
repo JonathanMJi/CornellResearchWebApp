@@ -1,5 +1,4 @@
 import streamlit as st
-import pickle
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -8,16 +7,16 @@ import tensorflow as tf
 model = tf.keras.models.load_model('BreastCancer_DL.h5')
 
 def predict_survival(age_at_diagnosis, overall_survival_months, lymph_nodes_examined_positive, tumor_size, tumor_stage, brca1, brca2, tp53, pten, egfr):
-    df = pd.read_csv('METABRIC_RNA_Mutation_Signature.csv', delimiter=',')
+    df = pd.read_csv('METABRIC_RNA_Mutation_Signature_Preprocessed.csv', delimiter=',')
     #Convert Categorical values to Numerical values
     #features_to_drop = df.columns[52:]
     #df = df.drop(features_to_drop, axis=1)
-    all_categorical_columns = df.select_dtypes(include=['object']).columns.tolist()
-    unwanted_columns = ['patient_id', 'death_from_cancer']
-    all_categorical_columns = [ele for ele in all_categorical_columns if ele not in unwanted_columns]
-    dummies_df = pd.get_dummies(df.drop('patient_id',axis=1),columns = all_categorical_columns,dummy_na=True)
-    dummies_df.dropna(inplace = True)
-    X = dummies_df.drop(['death_from_cancer', 'overall_survival'], axis = 1)
+    #all_categorical_columns = df.select_dtypes(include=['object']).columns.tolist()
+    #unwanted_columns = ['patient_id', 'death_from_cancer']
+    #all_categorical_columns = [ele for ele in all_categorical_columns if ele not in unwanted_columns]
+    #dummies_df = pd.get_dummies(df.drop('patient_id',axis=1),columns = all_categorical_columns,dummy_na=True)
+    #dummies_df.dropna(inplace = True)
+    X = df.drop(['death_from_cancer', 'overall_survival'], axis = 1)
 
     TestData = X.iloc[[9],:]
     TestData [['age_at_diagnosis', 'overall_survival_months','lymph_nodes_examined_positive', 'tumor_size', 'tumor_stage', 'brca1', 'brca2', 'tp53', 'pten', 'egfr']] = [age_at_diagnosis, overall_survival_months, lymph_nodes_examined_positive,tumor_size,tumor_stage,brca1,brca2,tp53,pten,egfr]
@@ -34,7 +33,7 @@ def main():
 
     html_temp = """
     <div style="background-color:#025246 ;padding:10px">
-    <h2 style="color:white;text-align:center;">AI Breast Cancer Prognosis Tool </h2>
+    <h2 style="color:white;text-align:center;">AI Breast Cancer Prognosis Web Tool </h2>
     </div>
     """
     st.markdown(html_temp, unsafe_allow_html=True)
